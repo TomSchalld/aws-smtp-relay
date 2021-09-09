@@ -1,8 +1,5 @@
 package com.loopingz;
 
-import java.lang.invoke.MethodHandles;
-import java.net.UnknownHostException;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -11,6 +8,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.net.UnknownHostException;
 
 public final class AwsSmtpRelay {
 
@@ -46,6 +46,15 @@ public final class AwsSmtpRelay {
         }
         if (cmd.hasOption(Params.SMTP_OVERRIDE.key())) {
             deliveryDetails.setSmtpOverride(cmd.getOptionValue(Params.SMTP_OVERRIDE.key()));
+        }
+        if (cmd.hasOption(Params.ROLE_ARN.key())){
+            deliveryDetails.setRoleArn(cmd.getOptionValue(Params.ROLE_ARN.key()));
+        }
+        if (cmd.hasOption(Params.ROLE_SESSION_NAME.key())){
+            deliveryDetails.setRoleSessionName(cmd.getOptionValue(Params.ROLE_SESSION_NAME.key()));
+        }
+        if (cmd.hasOption(Params.WEB_IDENTITY_TOKEN_FILE_PATH.key())){
+            deliveryDetails.setWebIdentityTokenFilePath(cmd.getOptionValue(Params.WEB_IDENTITY_TOKEN_FILE_PATH.key()));
         }
         setSmtpDirectCreds();
     }
@@ -86,6 +95,10 @@ public final class AwsSmtpRelay {
         options.addOption(Params.SMTP_PORT.key(), Params.SMTP_PORT.toString(), true, "SMTP variable Port");
         options.addOption(Params.SMTP_USERNAME.key(), Params.SMTP_USERNAME.toString(), true, "SMTP variable Username");
         options.addOption(Params.SMTP_PASSWORD.key(), Params.SMTP_PASSWORD.toString(), true, "SMTP variable password");
+
+        options.addOption(Params.ROLE_ARN.key(), Params.ROLE_ARN.toString(), true, "ARN of role to be assumed");
+        options.addOption(Params.ROLE_SESSION_NAME.key(), Params.ROLE_SESSION_NAME.toString(), true, "Name of the role session");
+        options.addOption(Params.WEB_IDENTITY_TOKEN_FILE_PATH.key(), Params.WEB_IDENTITY_TOKEN_FILE_PATH.toString(), true, "Path to the Web Identity Token File");
 
         options.addOption("h", "help", false, "Display this help");
         try {

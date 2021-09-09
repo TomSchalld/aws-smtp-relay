@@ -10,6 +10,9 @@ enum Params {
     CONFIGURATION("c", "configuration"),
     SOURCE_ARN("a", "sourceArn"),
     FROM_ARN("f", "fromArn"),
+    ROLE_ARN("role", "roleArn"),
+    ROLE_SESSION_NAME("sessionName", "roleSessionName"),
+    WEB_IDENTITY_TOKEN_FILE_PATH("tokenFilePath", "webIdentityTokenFilePath"),
     RETURN_PATH_ARN("t", "returnPathArn"),
 
     //ssm configs
